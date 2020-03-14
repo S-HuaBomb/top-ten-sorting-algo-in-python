@@ -5,6 +5,10 @@
   * [算法步骤](#算法步骤)
   * [动图演示](#动图演示)
   * [python代码](#python-代码)
+* [选择排序](#2-选择排序)
+  * [算法步骤](#算法步骤)
+  * [动图演示](#动图演示)
+  * [python代码](#python-代码)
 
 ## 1. 冒泡排序
 ### 算法步骤
@@ -13,13 +17,37 @@
 3. 针对所有的元素重复以上的步骤，除了最后一个。
 4. 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
 ### 动图演示
-![bubble](https://user-images.githubusercontent.com/39048551/76676661-c9ce6000-6600-11ea-9ae5-8269cf346f79.gif)
+![bubble](https://img-blog.csdnimg.cn/20200314230014948.gif)
 ### Python 代码
 ```python
-def bubbleSort(arr):
+def bubble_sort(arr):
+    """冒泡排序"""
     for i in range(1, len(arr)):
         for j in range(0, len(arr)-i):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+```
+
+## 2. 选择排序
+### 算法步骤
+1. 首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置。
+2. 再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。
+3. 重复第二步，直到所有元素均排序完毕。
+### 动图演示
+![selection](https://img-blog.csdnimg.cn/20200314230034422.gif)
+### Python 代码
+```python
+def selection_sort(arr):
+    """选择排序"""
+    for i in range(len(arr) - 1):
+        # 记录最小数的索引
+        min_index = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        # i 不是最小数时，将 i 和最小数进行交换
+        if i != min_index:
+            arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 ```

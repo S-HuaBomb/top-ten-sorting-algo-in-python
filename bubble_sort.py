@@ -1,3 +1,6 @@
+from randint_list import randint_list
+
+
 def bubble_sort(arr):
     """冒泡排序"""
     for i in range(1, len(arr)):
@@ -8,5 +11,7 @@ def bubble_sort(arr):
 
 
 if __name__ == '__main__':
-    li = [1, 3, 7, 4, 2, 5, 9, 8, 6]
+    # li = [1, 3, 7, 4, 2, 5, 9, 8, 6]
+    li = randint_list()
+    print(li)
     print(bubble_sort(li))
