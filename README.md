@@ -24,7 +24,8 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 ```
-* [目录](#目录)
+* [返回目录](#目录)
+---
 
 ## 2. 选择排序
 ### 算法步骤
@@ -48,7 +49,8 @@ def selection_sort(arr):
             arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 ```
-* [目录](#目录)
+* [返回目录](#目录)
+---
 
 ## 3. 插入排序
 ### 算法步骤
@@ -69,4 +71,5 @@ def insertionSort(arr):
         arr[preIndex + 1] = current
     return arr
 ```
-* [目录](#目录)
+* [返回目录](#目录)
+---
