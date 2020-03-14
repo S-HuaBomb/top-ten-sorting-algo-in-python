@@ -1,6 +1,7 @@
 # top-ten-sorting-algo-in-python
 用 python 手撸十大排序算法
 
+## 目录
 * [冒泡排序](#1-冒泡排序)
 * [选择排序](#2-选择排序)
 
@@ -22,6 +23,7 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 ```
+* [目录](#目录)
 
 ## 2. 选择排序
 ### 算法步骤
@@ -45,3 +47,4 @@ def selection_sort(arr):
             arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 ```
+* [目录](#目录)
