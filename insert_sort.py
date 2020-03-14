@@ -9,7 +9,7 @@ def timer(func):
         func(*args, **kwargs)
         t2 = time.time()
         time_cost = t2 - t1
-        print(f'花费时间{time_cost}')
+        print(f'{func.__name__} 花费时间{time_cost}')
     return wrapper
 
 
@@ -37,7 +37,7 @@ def bin_insert_sort(arr):
         index = binary_search(arr[:i + 1], arr[i])
         if index != i:
             arr[i], arr[index] = arr[index], arr[i]
-    print(arr)
+    # print(arr)
     return arr
 
 
@@ -52,7 +52,7 @@ def insert_sort(arr):
             else:
                 break
         arr[j] = temp  # 插入
-    print(arr)
+    # print(arr)
     return arr
 
 
@@ -66,7 +66,7 @@ def insertionSort(arr):
             arr[preIndex + 1] = arr[preIndex]
             preIndex -= 1
         arr[preIndex + 1] = current
-    print(arr)
+    # print(arr)
     return arr
 
 
