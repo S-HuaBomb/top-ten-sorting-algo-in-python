@@ -9,6 +9,7 @@
 * [归并排序](#5-归并排序)
 * [快速排序](#6-快速排序)
 * [堆排序](#7-堆排序)
+* [计数排序](#8-计数排序)
 
 ## 1. 冒泡排序
 **冒泡排序**（Bubble Sort）也是一种简单直观的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。
@@ -272,6 +273,37 @@ def heap_sort(arr):
 
 def swap(arr, i, j):
     arr[i], arr[j] = arr[j], arr[i]
+```
+* [返回目录](#目录)
+---
+
+## 8. 计数排序
+**计数排序**的核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。
+### 动图演示
+![counting](https://img-blog.csdnimg.cn/2020031423293110.gif)
+### [Python 代码](./counting_sort.py)
+```python
+def counting_sort(arr, max_value):
+    """
+    计数排序，将元素值作为数组下标
+
+    :max_value: 需要指明待排数组的最大元素值
+    """
+    bucket_len = max_value + 1
+    bucket = [0] * bucket_len
+    sorted_index = 0
+    arr_len = len(arr)
+    for i in range(arr_len):
+        if not bucket[arr[i]]:
+            bucket[arr[i]] = 0
+        bucket[arr[i]] += 1
+    for j in range(bucket_len):
+        while bucket[j] > 0:
+            arr[sorted_index] = j
+            sorted_index += 1
+            bucket[j] -= 1
+    return arr
+
 ```
 * [返回目录](#目录)
 ---
