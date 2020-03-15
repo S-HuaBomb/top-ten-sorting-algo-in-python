@@ -9,7 +9,7 @@ def timer(func):
         func(*args, **kwargs)
         t2 = time.time()
         time_cost = t2 - t1
-        print(f'{func.__name__} 花费时间{time_cost}')
+        print(f'{func.__name__} 花费时间 {time_cost}')
     return wrapper
 
 
@@ -72,7 +72,7 @@ def insertionSort(arr):
 
 if __name__ == '__main__':
     """折半插入排序大约比直接插入排序快20倍，参考答案快100倍。。。"""
-    li = randint_list(start=0, stop=1e6, length=1000)
+    li = randint_list(start=0, stop=1e6, length=10000)
     print(li)
     insert_sort(li)
     bin_insert_sort(li)
