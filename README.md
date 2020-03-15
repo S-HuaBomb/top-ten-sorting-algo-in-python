@@ -73,3 +73,32 @@ def insertionSort(arr):
 ```
 * [返回目录](#目录)
 ---
+
+## 4. 希尔排序
+### 算法步骤
+1. 选择一个增量序列 $ t_1, t_2, t_i, ..., t_j, t_k $，其中 $ t_i > t_j $, $ t_k = 1 $；
+2. 按增量序列个数 k，对序列进行 k 趟排序；
+3. 每趟排序，根据对应的增量 $ t_i $，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，
+整个序列作为一个表来处理，表长度即为整个序列的长度。
+### Python 代码
+```python
+def shell_sort(arr):
+    """希尔排序"""
+    import math
+    gap = 1
+    step = math.sqrt(len(arr))
+    while gap < step:
+        gap = int(gap * step + 1)
+    while gap > 0:
+        for i in range(gap, len(arr)):
+            temp = arr[i]
+            j = i - gap
+            while j >= 0 and arr[j] > temp:
+                arr[j + gap] = arr[j]
+                j -= gap
+            arr[j + gap] = temp
+        gap = int(gap // step)  # 下取整
+    return arr
+```
+* [返回目录](#目录)
+---
