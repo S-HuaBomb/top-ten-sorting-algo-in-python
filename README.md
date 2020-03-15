@@ -11,6 +11,7 @@
 * [堆排序](#7-堆排序)
 * [计数排序](#8-计数排序)
 * [桶排序](#9-桶排序)
+* [基数排序](#10-基数排序)
 
 ## 1. 冒泡排序
 **冒泡排序**（Bubble Sort）也是一种简单直观的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。
@@ -145,6 +146,8 @@ def shell_sort(arr):
 5. 将另一序列剩下的所有元素直接复制到合并序列尾。
 ### 动图演示
 ![merge](https://img-blog.csdnimg.cn/20200314231850999.gif)
+![merge1](https://img-blog.csdnimg.cn/20200315163821851.gif)
+
 ### [Python 代码](./merge_sort.py)
 ```python
 def merge_sort(arr):
@@ -236,7 +239,7 @@ def partition(arr, left, right):
 3. 把堆的尺寸缩小 1，并调用 shift_down(0)，目的是把新的数组顶端数据调整到相应位置；
 4. 重复步骤 2，直到堆的尺寸为 1。
 ### 动图演示
-![heap](https://img-blog.csdnimg.cn/20200314232917305.gif)
+![heap1](https://img-blog.csdnimg.cn/20200315163806989.gif)
 ### [Python 代码](./heap_sort.py)
 ```python
 def build_max_heap(arr):
@@ -332,7 +335,7 @@ def counting_sort(arr):
 ### 动图演示
 ![bucket1](https://img-blog.csdnimg.cn/20200315163457248.png)
 ![bucket2](https://img-blog.csdnimg.cn/20200315163511987.png)
-### [Python 代码](./bubble_sort.py)
+### [Python 代码](./bucket_sort.py)
 ```python
 from insert_sort import insert_sort
 
@@ -355,3 +358,47 @@ def bucket_sort(arr):
 ```
 * [返回目录](#目录)
 ---
+
+## 10. 基数排序
+基数排序是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。由于整数也可以表达字符串
+（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。
+
+**基数排序 vs 计数排序 vs 桶排序**
+
+这三种排序算法都利用了桶的概念，但对桶的使用方法上有明显差异：
+
+* 基数排序：根据键值的每位数字来分配桶；
+* 计数排序：每个桶只存储单一键值；
+* 桶排序：每个桶存储一定范围的数值；
+### 算法步骤
+1. 比较相邻的元素。比如第一个比第二个大，就交换他们两个。
+2. 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+3. 针对所有的元素重复以上的步骤，除了最后一个。
+4. 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+### 动图演示
+![radix](https://img-blog.csdnimg.cn/20200314232942531.gif)
+### [Python 代码](./radix_sort.py)
+```python
+def radix_sort(arr):
+    i = 0  # 初始为个位排序
+    n = 1  # 最小的位数置为1（包含0）
+    max_num = max(arr)  # 得到带排序数组中最大数
+    while max_num > 10 ** n:  # 得到最大数是几位数
+        n += 1
+    while i < n:
+        bucket = {}  # 用字典构建桶
+        for x in range(10):
+            bucket.setdefault(x, [])  # 将每个桶置空
+        for x in arr:  # 对每一位进行排序
+            radix = int((x / (10 ** i)) % 10)  # 得到每位的基数
+            bucket[radix].append(x)  # 将对应的数组元素加入到相 #应位基数的桶中
+        j = 0
+        for k in range(10):
+            if len(bucket[k]) != 0:  # 若桶不为空
+                for y in bucket[k]:  # 将该桶中每个元素
+                    arr[j] = y  # 放回到数组中
+                    j += 1
+        i += 1
+    return arr
+```
+* [返回目录](#目录)
