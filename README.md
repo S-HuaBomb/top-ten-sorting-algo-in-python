@@ -10,6 +10,7 @@
 * [快速排序](#6-快速排序)
 * [堆排序](#7-堆排序)
 * [计数排序](#8-计数排序)
+* [桶排序](#9-桶排序)
 
 ## 1. 冒泡排序
 **冒泡排序**（Bubble Sort）也是一种简单直观的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。
@@ -283,13 +284,14 @@ def swap(arr, i, j):
 ![counting](https://img-blog.csdnimg.cn/2020031423293110.gif)
 ### [Python 代码](./counting_sort.py)
 ```python
-def counting_sort(arr, max_value):
+def counting_sort(arr):
     """
     计数排序，将元素值作为数组下标
 
+    :bucket_len:
     :max_value: 需要指明待排数组的最大元素值
     """
-    bucket_len = max_value + 1
+    bucket_len = max(arr) + 1
     bucket = [0] * bucket_len
     sorted_index = 0
     arr_len = len(arr)
@@ -304,6 +306,52 @@ def counting_sort(arr, max_value):
             bucket[j] -= 1
     return arr
 
+```
+* [返回目录](#目录)
+---
+
+## 9. 桶排序
+**桶排序**是计数排序的升级版。它利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。为了使桶排序更加高效，我们需要做到这两点：
+
+* 在额外空间充足的情况下，尽量增大桶的数量
+* 使用的映射函数能够将输入的 N 个数据均匀的分配到 K 个桶中
+
+同时，对于桶中元素的排序，选择何种比较排序算法对于性能的影响至关重要。
+
+**什么时候最快？**
+
+当输入的数据可以均匀的分配到每一个桶中。
+最快时间复杂度：O(n+k)
+
+**什么时候最慢？**
+
+当输入的数据被分配到了同一个桶中。
+最坏时间复杂度：O(n<sup>2</sup>)
+
+**平均时间复杂度：**O(n2)
+### 动图演示
+![bucket1](https://img-blog.csdnimg.cn/20200315163457248.png)
+![bucket2](https://img-blog.csdnimg.cn/20200315163511987.png)
+### [Python 代码](./bubble_sort.py)
+```python
+from insert_sort import insert_sort
+
+def bucket_sort(arr):
+    """桶排序"""
+    min_num = min(arr)
+    max_num = max(arr)
+    bucket_size = (max_num - min_num) / len(arr)  # 桶的大小
+    count_list = [[] for _ in range(len(arr) + 1)]  # 桶数组
+    # 向桶数组填数
+    for i in arr:
+        count_list[int((i - min_num) // bucket_size)].append(i)
+    arr.clear()
+    # 回填，这里桶内部排序调用了 insert_sort()
+    print(count_list)
+    for i in count_list:
+        for j in insert_sort(i):
+            arr.append(j)
+    return arr
 ```
 * [返回目录](#目录)
 ---

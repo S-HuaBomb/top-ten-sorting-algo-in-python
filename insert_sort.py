@@ -30,18 +30,18 @@ def binary_search(arr, current):
     return -1
 
 
-@timer
+# @timer
 def bin_insert_sort(arr):
     """折半插入排序"""
     for i in range(1, len(arr)):
         index = binary_search(arr[:i + 1], arr[i])
         if index != i:
             arr[i], arr[index] = arr[index], arr[i]
-    # print(arr)
+    print(arr)
     return arr
 
 
-@timer
+# @timer
 def insert_sort(arr):
     """插入排序"""
     for i in range(1, len(arr)):
@@ -52,11 +52,11 @@ def insert_sort(arr):
             else:
                 break
         arr[j] = temp  # 插入
-    # print(arr)
+    print(arr)
     return arr
 
 
-@timer
+# @timer
 def insertionSort(arr):
     """参考资料中的代码"""
     for i in range(len(arr)):
@@ -66,13 +66,13 @@ def insertionSort(arr):
             arr[preIndex + 1] = arr[preIndex]
             preIndex -= 1
         arr[preIndex + 1] = current
-    # print(arr)
+    print(arr)
     return arr
 
 
 if __name__ == '__main__':
     """折半插入排序大约比直接插入排序快20倍，参考答案快100倍。。。"""
-    li = randint_list(start=0, stop=1e6, length=10000)
+    li = randint_list(start=0, stop=1e6, length=1000)
     print(li)
     insert_sort(li)
     bin_insert_sort(li)
