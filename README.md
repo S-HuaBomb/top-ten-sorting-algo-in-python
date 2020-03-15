@@ -7,6 +7,7 @@
 * [插入排序](#3-插入排序)
 * [希尔排序](#4-希尔排序)
 * [归并排序](#5-归并排序)
+* [快速排序](#6-快速排序)
 
 ## 1. 冒泡排序
 **冒泡排序**（Bubble Sort）也是一种简单直观的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。
@@ -164,6 +165,56 @@ def merge(left, right):
     while right:
         result.append(right.pop(0))
     return result
+```
+* [返回目录](#目录)
+---
+
+## 6. 快速排序
+**快速排序**是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要 Ο(nlogn) 次比较。在最坏状况下则需要 Ο(n2) 次比较，
+但这种状况并不常见。事实上，快速排序通常明显比其他 Ο(nlogn) 算法更快，因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来。
+
+快速排序使用分治法（Divide and conquer）策略来把一个串行（list）分为两个子串行（sub-lists）。快速排序又是一种分而治之思想在排序算法上的典型应用。
+本质上来看，快速排序应该算是在冒泡排序基础上的递归分治法。
+
+快速排序的名字起的是简单粗暴，因为一听到这个名字你就知道它存在的意义，就是快，而且效率高！它是处理大数据最快的排序算法之一了。
+虽然 Worst Case 的时间复杂度达到了 O(n²)，但是人家就是优秀，在大多数情况下都比平均时间复杂度为 O(n logn) 的排序算法表现要更好，
+可是这是为什么呢，我也不知道。好在我的强迫症又犯了，查了 N 多资料终于在《算法艺术与信息学竞赛》上找到了满意的答案：
+> 快速排序的最坏运行情况是 O(n²)，比如说顺序数列的快排。但它的平摊期望时间是 O(nlogn)，且 O(nlogn) 记号中隐含的常数因子很小，
+> 比复杂度稳定等于 O(nlogn) 的归并排序要小很多。所以，对绝大多数顺序性较弱的随机数列而言，快速排序总是优于归并排序。
+### 算法步骤
+1. 从数列中挑出一个元素，称为 “基准”（pivot）;
+2. 重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，
+该基准就处于数列的中间位置。这个称为分区（partition）操作；
+3. 递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；
+
+### 动图演示
+![quick](https://img-blog.csdnimg.cn/20200314232839666.gif)
+### [Python 代码](./quick_sort.py)
+```python
+def quick_sort(arr, left=None, right=None):
+    """快速排序"""
+    left = 0 if left is None else left  # 第一次递归调用时的初值
+    right = len(arr) - 1 if right is None else right  # 第一次递归调用时的初值
+    if left < right:
+        pivot = partition(arr, left, right)
+        quick_sort(arr, left, pivot - 1)
+        quick_sort(arr, pivot + 1, right)
+    return arr
+
+
+def partition(arr, left, right):
+    pivot = arr[left]  # 第一个元素作为枢纽
+    while left < right:  # left == right 时跳出
+        while left < right and arr[right] >= pivot:
+            # 从右往左找到第一个比 pivot 小的元素的下标
+            right -= 1
+        arr[left] = arr[right]  # 将其放到 pivot 左边
+        while left < right and arr[left] <= pivot:
+            # 从左往右找到第一个比 pivot 大的元素的下标
+            left += 1
+        arr[right] = arr[left]  # 将其放到 pivot 右边
+    arr[left] = pivot  # 此时left、right两个指针指向相同位置
+    return left
 ```
 * [返回目录](#目录)
 ---
