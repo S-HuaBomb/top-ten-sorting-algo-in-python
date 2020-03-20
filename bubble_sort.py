@@ -51,7 +51,7 @@ def bubbleSort(arr):
 
 
 @timer
-def _bubble_sort(origin_items, comp=lambda x, y: x > y):
+def bubble_sort_(origin_items, comp=lambda x, y: x > y):
     """高质量冒泡排序(搅拌排序)"""
     items = origin_items[:]
     for i in range(len(items) - 1):
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     print(li)
     bubble_sort(li)  # 普通冒泡花费时间 9.46
     bubbleSort(li)  # 立flag冒泡花费时间 0.000995
-    _bubble_sort(li)  # 花费时间 0.0019996
+    bubble_sort_(li)  # 花费时间 0.0019996
