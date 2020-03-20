@@ -72,10 +72,10 @@ def bubble_sort_(origin_items, comp=lambda x, y: x > y):
 
 
 if __name__ == '__main__':
+    """其实最朴素的冒泡排序在随机数列的情况下是最快的"""
     # li = [1, 3, 7, 4, 2, 5, 9, 8, 6]
-    """不加flag的冒泡排序花费时间大概是加flag的1000倍"""
     li = randint_list(0, 1e6, 10000)
     print(li)
-    bubble_sort(li)  # 普通冒泡花费时间 9.46
-    bubbleSort(li)  # 立flag冒泡花费时间 0.000995
-    bubble_sort_(li)  # 花费时间 0.0019996
+    bubble_sort(li)
+    # bubbleSort(li)
+    # bubble_sort_(li)
