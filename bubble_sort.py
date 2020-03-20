@@ -1,15 +1,28 @@
+import time
 from randint_list import randint_list
 
 
+def timer(func):
+    def wrapper(*args, **kwargs):
+        t1 = time.time()
+        func(*args, **kwargs)
+        t2 = time.time()
+        print(f"{func.__name__} 花费时间 {t2 - t1}")
+    return wrapper
+
+
+@timer
 def bubble_sort(arr):
     """冒泡排序"""
-    for i in range(1, len(arr)):
-        for j in range(0, len(arr) - i):
+    length = len(arr)
+    for i in range(length - 1):
+        for j in range(length - 1 - i):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
 
+@timer
 def bubbleSort(arr):
     """立 flag 的冒泡算法
     :param arr: 待排数组
@@ -37,9 +50,32 @@ def bubbleSort(arr):
     return arr
 
 
+@timer
+def _bubble_sort(origin_items, comp=lambda x, y: x > y):
+    """高质量冒泡排序(搅拌排序)"""
+    items = origin_items[:]
+    for i in range(len(items) - 1):
+        swapped = False
+        for j in range(i, len(items) - 1 - i):
+            if comp(items[j], items[j + 1]):
+                items[j], items[j + 1] = items[j + 1], items[j]
+                swapped = True
+        if swapped:
+            swapped = False
+            for j in range(len(items) - 2 - i, i, -1):
+                if comp(items[j - 1], items[j]):
+                    items[j], items[j - 1] = items[j - 1], items[j]
+                    swapped = True
+        if not swapped:
+            break
+    return items
+
+
 if __name__ == '__main__':
     # li = [1, 3, 7, 4, 2, 5, 9, 8, 6]
-    li = randint_list()
+    """不加flag的冒泡排序花费时间大概是加flag的1000倍"""
+    li = randint_list(0, 1e6, 10000)
     print(li)
-    print(bubble_sort(li))
-    print(bubbleSort(li))
+    bubble_sort(li)  # 普通冒泡花费时间 9.46
+    bubbleSort(li)  # 立flag冒泡花费时间 0.000995
+    _bubble_sort(li)  # 花费时间 0.0019996
