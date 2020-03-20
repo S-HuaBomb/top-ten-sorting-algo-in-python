@@ -1,5 +1,5 @@
-import time
 from randint_list import randint_list
+from timer import timer
 
 
 def quick_sort(arr, left=None, right=None):
@@ -28,11 +28,14 @@ def partition(arr, left, right):
     return left
 
 
+@timer
+def main(arr):
+    quick_sort(arr)
+
+
 if __name__ == '__main__':
     li = randint_list(0, 1e6, 10000)
     print(li)
-    # t1 = time.time()
-    res = quick_sort(li)
-    # t2 = time.time()
-    print(res)
-    # print(t2 - t1)
+    quick_sort(li)
+    # lii = quick_sort(li)
+    # print(lii)
